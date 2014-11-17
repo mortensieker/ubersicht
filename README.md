@@ -1,3 +1,3 @@
-ubersicht
+Übersicht
 =========
-Widgets for [Ûbersicht](http://tracesof.net/uebersicht/)
+Widgets for [Übersicht](http://tracesof.net/uebersicht/)
