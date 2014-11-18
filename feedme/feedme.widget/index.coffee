@@ -30,14 +30,19 @@ style: """
         text-align: right
         font-size: 20px
         padding: 10px   
+        height: 27px
         transform: rotate(-90deg)
         transform-origin: right top
         position: absolute
         top: 0
         right: 100%
 
+    #entrywrapper
+        padding-left: 40px
+        padding-right: 20px
+
     .entry
-        padding: 10px 20px
+    	padding: 10px 0
 
     .title
         font-size: 20px
@@ -52,23 +57,28 @@ style: """
 
 render: -> """
     <div id="feed">
+    	<div id="titlewrapper"></div>
+    	<div id="entrywrapper"></div>
     </div>
 """
 
 update: (output, domEl) ->
     $domEl = $(domEl)
     $container = $domEl.find '#feed'
-    $container.empty()
+    $tv = $domEl.find '#titlewrapper'
+    $ev = $domEl.find '#entrywrapper'
+    $ev.empty()
+    $tv.empty()
     result = JSON.parse output
     title = result.responseData.feed.title
-    $container.append('<div id="feedtitle">'+title+'</div>')
+    $tv.append('<div id="feedtitle">'+title+'</div>')
     
     for e in result.responseData.feed.entries
         localdate = new Date(e.publishedDate)
         localdate = localdate.toLocaleDateString()
-        $container.append('<div class="entry"><div class="title">'+e.title+'</div><div class="date">'+localdate+'</div></div>')
+        $ev.append('<div class="entry"><div class="title">'+e.title+'</div><div class="date">'+localdate+'</div></div>')
 
-    $('.entry').css('margin-left', $domEl.find('#feedtitle').height())
+    $ev.css('margin-left', $tv.find('#feedtitle').height())
     $('#feedtitle').css('width', $domEl.find('#feed').height()-20)
 
     
